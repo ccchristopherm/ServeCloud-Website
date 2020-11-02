@@ -1,4 +1,4 @@
-name: scp my files
+name: scp files
 on: [push]
 jobs:
 
@@ -7,12 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    uses: appleboy/scp-action@master
-    with:
-      host: ${{ secrets.HOST }}
-      username: ${{ secrets.USERNAME }}
-      key: ${{ secrets.SSH2 }}
-      passphrase: ${{ secrets.PASSPHRASE }}
-      port: ${{ secrets.PORT }}
-      source: "index.html"
-      target: "/var/www/html"
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH2 }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        port: ${{ secrets.PORT }}
+        source: "index.html"
+        target: "/var/www/html"
